@@ -27,6 +27,7 @@ class ProductsController extends Controller
         if ($validator->fails()) {
             return response()->json(["mensaje" => $validator->errors()->all()]);
         } else {
+            
             $dataCreate = [
                 "nombre" => $this->request->input("nombre"),
                 "precio" => $this->request->input("precio"),
