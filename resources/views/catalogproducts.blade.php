@@ -17,8 +17,9 @@
                         <label for="exampleInputPassword1" class="form-label">Categoria</label>
                         <select name="categoria" id="categoria" class="form-select">
                             <option value="">Seleccione una opcion</option>
-                            <option value="1">MODA</option>
-                            <option value="2">TECNOLOGIA</option>
+                            @foreach($listCategories as $categorie) 
+                                <option value="{{$categorie['id']}}">{{$categorie['nombre']}}</option>
+                            @endforeach
                         </select>
                     </div>
                     @if(!empty($product))
