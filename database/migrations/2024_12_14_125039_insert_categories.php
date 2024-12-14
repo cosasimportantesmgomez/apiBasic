@@ -11,7 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        //
+        \DB::unprepared(
+            "INSERT INTO `categoria` (`id`, `nombre`) VALUES
+            (NULL, 'MODA'), 
+            (NULL, 'TECNOLOGIA'), 
+            (NULL, 'JUGUETES'), 
+            (NULL, 'HOGAR'), 
+            (NULL, 'ENTRETENIMIENTO'), 
+            (NULL, 'BELLEZA'), 
+            (NULL, 'SALUD Y BIENESTAR')"
+        );
     }
 
     /**
