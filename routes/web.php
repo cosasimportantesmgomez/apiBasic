@@ -13,12 +13,10 @@ use App\Http\Controllers\ProductsController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+
+Route::get('/', [ProductsController::class, 'index']);
 
 Route::prefix('backoffice')->group(function() {
-    Route::get('management_products', [ProductsController::class, 'index']);
     Route::get('getProduct', [ProductsController::class, 'getProduct']);
     Route::get('deleteProduct', [ProductsController::class, 'deleteProduct']);
 });
