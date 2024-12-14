@@ -1,66 +1,37 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# CONSULTAS DE SQL 
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+1. SELECT c.*
+FROM categoria c
+LEFT JOIN productos p ON c.id = p.categoria_id
+WHERE p.id IS NULL;
 
-## About Laravel
+2. SELECT c.id AS categoria_id, c.nombre AS categoria_nombre, COUNT(p.id) AS total_productos
+FROM categoria c
+LEFT JOIN productos p ON c.id = p.categoria_id
+GROUP BY c.id, c.nombre;
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+3. SELECT p.id AS producto_id, p.nombre AS producto_nombre, p.precio, p.categoria_id
+FROM productos p
+JOIN (
+    SELECT categoria_id, AVG(precio) AS promedio_precio
+    FROM productos
+    GROUP BY categoria_id
+) subconsulta ON p.categoria_id = subconsulta.categoria_id
+WHERE p.precio > subconsulta.promedio_precio;
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+# COMANDOS PARA GIT QUE USE PARA LA PRUEBA
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+git init // INICIAR EL GIT
+git add . // SE AGREGAN LOS ARCHIVOS PARA TENERLOS LISTO PARA HACER LA SUBIDA
+git commit -m "MENSAJE DEL COMMIT" // DARLE UNA DESCRIPCION A LOS CAMBIOS QUE SUBIRE
+git remote add origin "URL DE MI GIT GENERADO" // CONECTO EL REPOSITORIO LOCAL CON EL REMOTO
+git push -u origin main // SE SUBE LA RAMA main AL REMOTO
+git checkout -b developer // ESTANDO PARADO EN LA RAMA MAIN SE CREA DEVELPMENT EN BASE A MAIN
+git push -u origin development // SUBO TAMBIEN LA RAMA DEVELOPMENT AL REMOTO
+git checkout -nombre de la rama // PARA PASARME DE RAMA EN RAMA SI LO NECESITO
+git push origin (nombre de la rama a la cual se subieran los cambios) ejemplo git push origin development
 
-## Learning Laravel
+para los pull request entro a mi git hub en el navegador le doy en compare pull request reviso cambios
+fusiono los cambios (MERGE) de development hacia main y confirmo el merge y listo
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
-
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
-
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
-
-## Laravel Sponsors
-
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
-
-### Premium Partners
-
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
-
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+git pull origin (nombre de la rama a la cual quiero bajar los cambios para estar actualizado)
