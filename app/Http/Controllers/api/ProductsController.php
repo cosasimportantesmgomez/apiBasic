@@ -42,8 +42,10 @@ class ProductsController extends Controller
     }
 
     public function updateProduct() {
+
+        $idProduct = $this->request->input("id");
         $validator = Validator::make($this->request->all(), [
-            "nombre" => "required|unique:productos,nombre",
+            "nombre" => "required|unique:productos,nombre," . $idProduct,
             "precio" => "required|numeric|gt:0",
             "categoria" => "required",
         ]);
@@ -56,8 +58,6 @@ class ProductsController extends Controller
                 "precio" => $this->request->input("precio"),
                 "categoria_id" => $this->request->input("categoria"),
             ];
-
-            $idProduct = $this->request->input("id");
 
             if ($this->svcProducts->updateProduct($idProduct, $dataUpdate)) {
                 return response()->json(["mensaje" => "Producto modificado", "error" => "0"]);
